@@ -1,20 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 
 export default function App() {
+const [num1,setNum1] = useState(0);
+const [num2, setNum2] = useState(0); 
+const [result, setResult] = useState();
+
+const pressPlus = () => {
+  const plus = num1 + num2
+  setResult(plus)
+}
+
+const pressMinus = () => {
+  const minus = num1 - num2
+  setResult(minus)
+}
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{flex:0.4,alignItems:'center', justifyContent:'space-evenly', top:100}}>
+      <Text>Result: {result} </Text>
+      <TextInput 
+        type= "number" 
+        placeholder= "0" 
+        keyboardType = 'number-pad'
+        value={num1} 
+        onChange={e => setNum1(Number.parseInt(e.nativeEvent.text))}
+      />
+      <TextInput 
+        type= "number" 
+        placeholder= "0"
+        keyboardType = 'number-pad' 
+        value={num2} 
+        onChange={v => setNum2(Number.parseInt(v.nativeEvent.text))}
+      />
+      <View style={{flexDirection:'row', }}>
+      <Button title="+" onPress={pressPlus} />
+      <Button title="-" onPress={pressMinus}/>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
